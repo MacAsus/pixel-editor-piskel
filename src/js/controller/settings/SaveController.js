@@ -6,7 +6,8 @@
     GALLERY : 'save-gallery-partial',
     GALLERY_UNAVAILABLE : 'save-gallery-unavailable-partial',
     LOCALSTORAGE : 'save-localstorage-partial',
-    FILEDOWNLOAD : 'save-file-download-partial'
+    FILEDOWNLOAD : 'save-file-download-partial',
+    SAVE_TO_SERVER: 'save-file-to-server-partial'
   };
 
   ns.SaveController = function (piskelController) {
@@ -33,12 +34,14 @@
     this.saveDesktopButton = document.querySelector('#save-desktop-button');
     this.saveDesktopAsNewButton = document.querySelector('#save-desktop-as-new-button');
     this.saveFileDownloadButton = document.querySelector('#save-file-download-button');
+    this.saveFileToServerButton = document.querySelector('#save-file-to-server-button');
 
     this.safeAddEventListener_(this.saveLocalStorageButton, 'click', this.saveToIndexedDb_);
     this.safeAddEventListener_(this.saveGalleryButton, 'click', this.saveToGallery_);
     this.safeAddEventListener_(this.saveDesktopButton, 'click', this.saveToDesktop_);
     this.safeAddEventListener_(this.saveDesktopAsNewButton, 'click', this.saveToDesktopAsNew_);
     this.safeAddEventListener_(this.saveFileDownloadButton, 'click', this.saveToFileDownload_);
+    this.safeAddEventListener_(this.saveFileToServerButton, 'click', this.saveToFileToServer_);
 
     this.addEventListener(this.saveForm, 'submit', this.onSaveFormSubmit_);
 
@@ -68,14 +71,14 @@
 
   ns.SaveController.prototype.getPartials_ = function () {
     if (pskl.utils.Environment.detectNodeWebkit()) {
-      return [PARTIALS.DESKTOP, PARTIALS.LOCALSTORAGE, PARTIALS.GALLERY_UNAVAILABLE];
+      return [PARTIALS.DESKTOP, PARTIALS.LOCALSTORAGE, PARTIALS.SAVE_TO_SERVER];
     }
 
     if (pskl.app.isLoggedIn()) {
-      return [PARTIALS.GALLERY, PARTIALS.LOCALSTORAGE, PARTIALS.FILEDOWNLOAD];
+      return [PARTIALS.LOCALSTORAGE, PARTIALS.FILEDOWNLOAD, PARTIALS.SAVE_TO_SERVER];
     }
 
-    return [PARTIALS.FILEDOWNLOAD, PARTIALS.LOCALSTORAGE, PARTIALS.GALLERY_UNAVAILABLE];
+    return [PARTIALS.FILEDOWNLOAD, PARTIALS.LOCALSTORAGE, PARTIALS.SAVE_TO_SERVER];
   };
 
   ns.SaveController.prototype.updateDescriptorInputs_ = function (evt) {
@@ -121,6 +124,11 @@
 
   ns.SaveController.prototype.saveToDesktopAsNew_ = function () {
     this.saveTo_('saveToDesktop', true);
+  };
+
+  ns.SaveController.prototype.saveToFileToServer_ = function () {
+    // Todo: HTTP Request POST
+    console.log('서버로 저장');
   };
 
   ns.SaveController.prototype.saveTo_ = function (methodName, saveAsNew) {

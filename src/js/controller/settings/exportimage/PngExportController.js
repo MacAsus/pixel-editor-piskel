@@ -28,16 +28,16 @@
     this.rowsInput = document.querySelector('#png-export-rows');
     this.columnsInput = document.querySelector('#png-export-columns');
 
-    var downloadButton = document.querySelector('.png-download-button');
-    var downloadPixiButton = document.querySelector('.png-pixi-download-button');
+    // var downloadButton = document.querySelector('.png-download-button');
+    // var downloadPixiButton = document.querySelector('.png-pixi-download-button');
     var dataUriButton = document.querySelector('.datauri-open-button');
 
     this.initLayoutSection_();
     this.updateDimensionLabel_();
 
     this.addEventListener(this.columnsInput, 'input', this.onColumnsInput_);
-    this.addEventListener(downloadButton, 'click', this.onDownloadClick_);
-    this.addEventListener(downloadPixiButton, 'click', this.onPixiDownloadClick_);
+    // this.addEventListener(downloadButton, 'click', this.onDownloadClick_);
+    // this.addEventListener(downloadPixiButton, 'click', this.onPixiDownloadClick_);
     this.addEventListener(dataUriButton, 'click', this.onDataUriClick_);
     $.subscribe(Events.EXPORT_SCALE_CHANGED, this.onScaleChanged_);
   };
@@ -207,8 +207,11 @@
   };
 
   ns.PngExportController.prototype.onDataUriClick_ = function (evt) {
-    var popup = window.open('about:blank');
+    // var popup = window.open('about:blank');
     var dataUri = this.createPngSpritesheet_().toDataURL('image/png');
+    // Todo: Send To Server API
+    console.log('저장할 dataUri', dataUri);
+    /*
     window.setTimeout(function () {
       var html = pskl.utils.Template.getAndReplace('data-uri-export-partial', {
         src: dataUri
@@ -216,5 +219,6 @@
       popup.document.title = dataUri;
       popup.document.body.innerHTML = html;
     }.bind(this), 500);
+    */
   };
 })();

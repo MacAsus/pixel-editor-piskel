@@ -6,18 +6,6 @@
       template : 'templates/settings/export/png.html',
       controller : ns.PngExportController
     },
-    'gif' : {
-      template : 'templates/settings/export/gif.html',
-      controller : ns.GifExportController
-    },
-    'zip' : {
-      template : 'templates/settings/export/zip.html',
-      controller : ns.ZipExportController
-    },
-    'misc' : {
-      template : 'templates/settings/export/misc.html',
-      controller : ns.MiscExportController
-    }
   };
 
   ns.ExportController = function (piskelController) {
