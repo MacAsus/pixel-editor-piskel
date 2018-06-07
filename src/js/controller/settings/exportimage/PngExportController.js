@@ -155,7 +155,7 @@
     var fileName = name + '.png';
 
     // Transform to blob and start download.
-    pskl.utils.BlobUtils.canvasToBlob(canvas, function(blob) {
+    pskl.utils.BlobUtils.canvasToBlob(canvas, function (blob) {
       pskl.utils.FileUtils.downloadAsFile(blob, fileName);
     });
   };
@@ -167,7 +167,9 @@
     var canvas = this.createPngSpritesheet_();
     var name = this.piskelController.getPiskel().getDescriptor().name;
 
-    zip.file(name + '.png', pskl.utils.CanvasUtils.getBase64FromCanvas(canvas) + '\n', {base64: true});
+    zip.file(name + '.png', pskl.utils.CanvasUtils.getBase64FromCanvas(canvas) + '\n', {
+      base64: true
+    });
 
     var width = canvas.width / this.getColumns_();
     var height = canvas.height / this.getRows_();
@@ -178,11 +180,24 @@
       var column = i % this.getColumns_();
       var row = (i - column) / this.getColumns_();
       var frame = {
-        'frame': {'x': width * column,'y': height * row,'w': width,'h': height},
+        'frame': {
+          'x': width * column,
+          'y': height * row,
+          'w': width,
+          'h': height
+        },
         'rotated': false,
         'trimmed': false,
-        'spriteSourceSize': {'x': 0,'y': 0,'w': width,'h': height},
-        'sourceSize': {'w': width,'h': height}
+        'spriteSourceSize': {
+          'x': 0,
+          'y': 0,
+          'w': width,
+          'h': height
+        },
+        'sourceSize': {
+          'w': width,
+          'h': height
+        }
       };
       frames[name + i + '.png'] = frame;
     }
@@ -194,13 +209,16 @@
         'version': '1.0',
         'image': name + '.png',
         'format': 'RGBA8888',
-        'size': {'w': canvas.width,'h': canvas.height}
+        'size': {
+          'w': canvas.width,
+          'h': canvas.height
+        }
       }
     };
     zip.file(name + '.json', JSON.stringify(json));
 
     var blob = zip.generate({
-      type : 'blob'
+      type: 'blob'
     });
 
     pskl.utils.FileUtils.downloadAsFile(blob, name + '.zip');
@@ -211,6 +229,22 @@
     var dataUri = this.createPngSpritesheet_().toDataURL('image/png');
     // Todo: Send To Server API
     console.log('저장할 dataUri', dataUri);
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/file',
+      data: JSON.stringify({
+
+      }), // or JSON.stringify ({name: 'jonas'}),
+      success: function (data) {
+        console.log('data: ' + JSON.stringify(data));
+        if (data.success) { // 로그인 성공
+        } else { // 로그인 실패
+          alert(data.msg);
+        }
+      },
+      contentType: 'application/json',
+      dataType: 'json'
+    });
     /*
     window.setTimeout(function () {
       var html = pskl.utils.Template.getAndReplace('data-uri-export-partial', {
