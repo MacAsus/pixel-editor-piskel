@@ -233,7 +233,7 @@
       type: 'POST',
       url: 'http://localhost:3000/file',
       data: JSON.stringify({
-
+        imageDataUri: dataUri
       }), // or JSON.stringify ({name: 'jonas'}),
       success: function (data) {
         console.log('data: ' + JSON.stringify(data));
