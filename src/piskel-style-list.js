@@ -4,6 +4,7 @@
   "css/variables.css",
   "css/reset.css",
   "css/style.css",
+  "css/sweetalert.css",
   "css/animations.css",
   "css/layout.css",
   "css/font-icon.css",
