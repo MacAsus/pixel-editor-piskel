@@ -236,8 +236,8 @@
         imageDataUri: dataUri
       }), // or JSON.stringify ({name: 'jonas'}),
       success: function (data) {
-        console.log('data: ' + JSON.stringify(data));
         if (data.success) { // 로그인 성공
+          console.log('success data: ' + JSON.stringify(data));
         } else { // 로그인 실패
           alert(data.msg);
         }
