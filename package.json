@@ -55,7 +55,8 @@
     "phantomjs": "2.1.7",
     "phantomjs-polyfill-object-assign": "0.0.2",
     "promise-polyfill": "6.0.2",
-    "rmdir": "1.2.0"
+    "rmdir": "1.2.0",
+    "sweetalert": "^2.1.0"
   },
   "window": {
     "title": "Piskel",
